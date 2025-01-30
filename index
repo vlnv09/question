@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<!-- Previous head section remains exactly the same -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* All previous styles remain exactly the same */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fc9ed0;
+            font-family: 'Lexend', sans-serif;
+            color: #fefff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .message-container {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .message {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .button-container {
+            display: none;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .choice-button {
+            padding: 15px 40px;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            background-color: #fefff;
+            color: #000000;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: 'Lexend', sans-serif;
+            transition: transform 0.2s;
+        }
+
+        .choice-button:hover {
+            transform: scale(1.05);
+        }
+
+        .no-text {
+            font-size: 1rem;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .fact-container {
+            min-height: 120px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .fact-text {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .nav-button {
+            padding: 12px 30px;
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+            background-color: #fefff;
+            color: #000000;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Lexend', sans-serif;
+            transition: transform 0.2s;
+        }
+
+        .nav-button:hover {
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .final-message {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main-content">
+        <!-- Previous main-content section remains exactly the same -->
+        <div class="message-container">
+            <div id="message1" class="message">HI BABYYY IM SORRY FOR MAKING U WAIT THIS LONG BUTTTT</div>
+            <div id="message2" class="message">I HV A QUESTION FOR U</div>
+            <div id="message3" class="message">WILL U BE MY VALENTINE? 😝</div>
+        </div>
+        
+        <div class="button-container" id="button-container">
+            <button class="choice-button" id="yes-btn">yes</button>
+            <button class="choice-button" id="no-btn">no</button>
+        </div>
+        <div class="no-text" id="no-text">there wont be no 'nos' this time 😡</div>
+    </div>
+
+    <div id="second-page" class="fact-container hidden">
+        <!-- Previous facts section remains exactly the same -->
+        <div id="reminder" class="fact-text">rmb these things cz ull need them 😝</div>
+        <div id="fact1" class="fact-text hidden">cupid carries a bow nd arrow to shoot ppls hearts nd make them fall in love</div>
+        <div id="fact2" class="fact-text hidden">valentines day happens every feb 14th, named after saint valentine who was killed for his beliefs</div>
+        <div id="fact3" class="fact-text hidden">before valentines day existed, ancient romans celebrated love during a festival called lupercalia</div>
+        <div id="fact4" class="fact-text hidden">saint valentine wrote the first valentine letter while he was in jail</div>
+        <div id="fact5" class="fact-text hidden">ppl exchange valentines day cards with loving messages written on them</div>
+        <div id="fact6" class="fact-text hidden">giving boxes of chocolates is a major valentines day tradition</div>
+        <div id="fact7" class="fact-text hidden">valentines day happens in winter, making it a warm celebration during a cold month</div>
+        <div id="fact8" class="fact-text hidden">heart shaped strawberries are popular valentines day treats</div>
+        <div id="fact9" class="fact-text hidden">red roses are considered the most romantic flower bcz their petals open up beautifully</div>
+        
+        <div class="button-container" id="nav-buttons" style="display: flex;">
+            <button id="back-btn" class="nav-button hidden">back</button>
+            <button id="next-btn" class="nav-button hidden">next</button>
+        </div>
+    </div>
+
+    <div id="final-message" class="final-message hidden">
+        thats all there is for tday buttt, u rlly will do need those facts this feb 14th, so lets hope u rmb them😛
+    </div>
+
+    <script>
+        // Previous functions remain exactly the same until startFactSequence
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function startSequence() {
+            const message1 = document.getElementById('message1');
+            const message2 = document.getElementById('message2');
+            const message3 = document.getElementById('message3');
+            const buttonContainer = document.getElementById('button-container');
+            
+            message1.style.opacity = '1';
+            await sleep(3000);
+            message1.style.opacity = '0';
+            await sleep(500);
+            
+            message2.style.opacity = '1';
+            await sleep(3000);
+            message2.style.opacity = '0';
+            await sleep(500);
+            
+            message3.style.opacity = '1';
+            buttonContainer.style.display = 'flex';
+        }
+
+        async function startFactSequence() {
+            const reminder = document.getElementById('reminder');
+            const fact1 = document.getElementById('fact1');
+            const fact2 = document.getElementById('fact2');
+            const fact3 = document.getElementById('fact3');
+            const fact4 = document.getElementById('fact4');
+            const fact5 = document.getElementById('fact5');
+            const fact6 = document.getElementById('fact6');
+            const fact7 = document.getElementById('fact7');
+            const fact8 = document.getElementById('fact8');
+            const fact9 = document.getElementById('fact9');
+            const nextBtn = document.getElementById('next-btn');
+            const backBtn = document.getElementById('back-btn');
+            const secondPage = document.getElementById('second-page');
+            const finalMessage = document.getElementById('final-message');
+
+            let currentFact = 1;
+
+            secondPage.style.opacity = '1';
+            reminder.style.opacity = '1';
+            await sleep(2000);
+            reminder.style.opacity = '0';
+            await sleep(500);
+
+            reminder.classList.add('hidden');
+            fact1.classList.remove('hidden');
+            fact1.style.opacity = '1';
+            nextBtn.classList.remove('hidden');
+
+            nextBtn.onclick = () => {
+                if(currentFact === 1) {
+                    fact1.style.opacity = '0';
+                    setTimeout(() => {
+                        fact1.classList.add('hidden');
+                        fact2.classList.remove('hidden');
+                        fact2.style.opacity = '1';
+                        backBtn.classList.remove('hidden');
+                        nextBtn.style.marginLeft = 'auto';
+                    }, 500);
+                    currentFact = 2;
+                } else if(currentFact === 2) {
+                    fact2.style.opacity = '0';
+                    setTimeout(() => {
+                        fact2.classList.add('hidden');
+                        fact3.classList.remove('hidden');
+                        fact3.style.opacity = '1';
+                    }, 500);
+                    currentFact = 3;
+                } else if(currentFact === 3) {
+                    fact3.style.opacity = '0';
+                    setTimeout(() => {
+                        fact3.classList.add('hidden');
+                        fact4.classList.remove('hidden');
+                        fact4.style.opacity = '1';
+                    }, 500);
+                    currentFact = 4;
+                } else if(currentFact === 4) {
+                    fact4.style.opacity = '0';
+                    setTimeout(() => {
+                        fact4.classList.add('hidden');
+                        fact5.classList.remove('hidden');
+                        fact5.style.opacity = '1';
+                    }, 500);
+                    currentFact = 5;
+                } else if(currentFact === 5) {
+                    fact5.style.opacity = '0';
+                    setTimeout(() => {
+                        fact5.classList.add('hidden');
+                        fact6.classList.remove('hidden');
+                        fact6.style.opacity = '1';
+                    }, 500);
+                    currentFact = 6;
+                } else if(currentFact === 6) {
+                    fact6.style.opacity = '0';
+                    setTimeout(() => {
+                        fact6.classList.add('hidden');
+                        fact7.classList.remove('hidden');
+                        fact7.style.opacity = '1';
+                    }, 500);
+                    currentFact = 7;
+                } else if(currentFact === 7) {
+                    fact7.style.opacity = '0';
+                    setTimeout(() => {
+                        fact7.classList.add('hidden');
+                        fact8.classList.remove('hidden');
+                        fact8.style.opacity = '1';
+                    }, 500);
+                    currentFact = 8;
+                } else if(currentFact === 8) {
+                    fact8.style.opacity = '0';
+                    setTimeout(() => {
+                        fact8.classList.add('hidden');
+                        fact9.classList.remove('hidden');
+                        fact9.style.opacity = '1';
+                        nextBtn.textContent = 'finish';
+                    }, 500);
+                    currentFact = 9;
+                } else if(currentFact === 9) {
+                    secondPage.style.opacity = '0';
+                    setTimeout(() => {
+                        secondPage.classList.add('hidden');
+                        finalMessage.classList.remove('hidden');
+                        finalMessage.style.opacity = '1';
+                    }, 500);
+                }
+            };
+
+            backBtn.onclick = () => {
+                if(currentFact === 2) {
+                    fact2.style.opacity = '0';
+                    setTimeout(() => {
+                        fact2.classList.add('hidden');
+                        fact1.classList.remove('hidden');
+                        fact1.style.opacity = '1';
+                        backBtn.classList.add('hidden');
+                        nextBtn.style.marginLeft = '0';
+                    }, 500);
+                    currentFact = 1;
+                } else if(currentFact === 3) {
+                    fact3.style.opacity = '0';
+                    setTimeout(() => {
+                        fact3.classList.add('hidden');
+                        fact2.classList.remove('hidden');
+                        fact2.style.opacity = '1';
+                    }, 500);
+                    currentFact = 2;
+                } else if(currentFact === 4) {
+                    fact4.style.opacity = '0';
+                    setTimeout(() => {
+                        fact4.classList.add('hidden');
+                        fact3.classList.remove('hidden');
+                        fact3.style.opacity = '1';
+                    }, 500);
+                    currentFact = 3;
+                } else if(currentFact === 5) {
+                    fact5.style.opacity = '0';
+                    setTimeout(() => {
+                        fact5.classList.add('hidden');
+                        fact4.classList.remove('hidden');
+                        fact4.style.opacity = '1';
+                    }, 500);
+                    currentFact = 4;
+                } else if(currentFact === 6) {
+                    fact6.style.opacity = '0';
+                    setTimeout(() => {
+                        fact6.classList.add('hidden');
+                        fact5.classList.remove('hidden');
+                        fact5.style.opacity = '1';
+                    }, 500);
+                    currentFact = 5;
+                } else if(currentFact === 7) {
+                    fact7.style.opacity = '0';
+                    setTimeout(() => {
+                        fact7.classList.add('hidden');
+                        fact6.classList.remove('hidden');
+                        fact6.style.opacity = '1';
+                    }, 500);
+                    currentFact = 6;
+                } else if(currentFact === 8) {
+                    fact8.style.opacity = '0';
+                    setTimeout(() => {
+                        fact8.classList.add('hidden');
+                        fact7.classList.remove('hidden');
+                        fact7.style.opacity = '1';
+                    }, 500);
+                    currentFact = 7;
+                } else if(currentFact === 9) {
+                    fact9.style.opacity = '0';
+                    setTimeout(() => {
+                        fact9.classList.add('hidden');
+                        fact8.classList.remove('hidden');
+                        fact8.style.opacity = '1';
+                        nextBtn.textContent = 'next';
+                    }, 500);
+                    currentFact = 8;
+                }
+            };
+        }
+
+        document.getElementById('no-btn').addEventListener('click', function() {
+            this.style.display = 'none';
+            document.getElementById('yes-btn').style.marginLeft = 'auto';
+            document.getElementById('yes-btn').style.marginRight = 'auto';
+            document.getElementById('no-text').style.opacity = '1';
+        });
+
+        document.getElementById('yes-btn').addEventListener('click', function() {
+            document.getElementById('main-content').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('main-content').classList.add('hidden');
+                document.getElementById('second-page').classList.remove('hidden');
+                startFactSequence();
+            }, 500);
+        });
+
+        window.onload = startSequence;
+    </script>
+</body>
+</html>
